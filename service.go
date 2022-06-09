@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/junaozun/go-lrpxc/codes"
 	"github.com/junaozun/go-lrpxc/interceptor"
 	"github.com/junaozun/go-lrpxc/metadata"
@@ -12,7 +13,6 @@ import (
 	"github.com/junaozun/go-lrpxc/serialization"
 	"github.com/junaozun/go-lrpxc/transport/server_transport"
 	"github.com/junaozun/go-lrpxc/utils"
-	"google.golang.org/protobuf/proto"
 )
 
 // Service 的接口定义了每个服务需要提供的通用能力，包括 Register （处理函数 Handler 的注册）、提供服务 Serve，服务关闭 Close 等方法

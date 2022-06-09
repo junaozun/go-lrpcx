@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/junaozun/go-lrpxc/interceptor"
 	"github.com/junaozun/go-lrpxc/plugin"
@@ -28,6 +29,20 @@ func init() {
 // global jaeger objects for framework
 var JaegerSvr = &Jaeger{
 	opts: &plugin.Options{},
+}
+
+type jaegerCarrier map[string][]byte
+
+func (m jaegerCarrier) Set(key, val string) {
+	key = strings.ToLower(key)
+	m[key] = []byte(val)
+}
+
+func (m jaegerCarrier) ForeachKey(handler func(key, val string) error) error {
+	for k, v := range m {
+		handler(k, string(v))
+	}
+	return nil
 }
 
 func (j *Jaeger) Init(opts ...plugin.Option) (opentracing.Tracer, error) {
